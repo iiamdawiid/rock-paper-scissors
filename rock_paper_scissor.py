@@ -129,7 +129,7 @@ class RockPaperScissor():
             print("")
             self.game_start()
         else:
-            return
+            print("\nThank you for playing!")
 
 
 
