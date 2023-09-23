@@ -41,50 +41,28 @@ class RockPaperScissor():
         self.get_outcome()
 
     def get_outcome(self):
-        outcome = 0
+        outcomes = {
+            (1, 2): "PAPER beats ROCK",
+            (2, 1): "PAPER beats ROCK",
+            (2, 3): "SCISSOR beats PAPER",
+            (3, 2): "SCISSOR beats PAPER",
+            (3, 1): "ROCK beats SCISSOR",
+            (1, 3): "ROCK beats SCISSOR"
+        }
         print("")
-        if self.user_choice == 1 and self.comp_choice == 2:
-            print("!! ROUND LOST !!")
-            print("PAPER beats ROCK")
-            self.increment_score(outcome)
-            self.go_again += 1
-            self.print_score()
-        elif self.user_choice == 2 and self.comp_choice == 1:
-            outcome = 1
-            print("!! ROUND WON !!")
-            print("PAPER beats ROCK")
-            self.increment_score(outcome)
-            self.go_again += 1
-            self.print_score()
-        elif self.user_choice == 2 and self.comp_choice == 3:
-            print("!! ROUND LOST !!")
-            print("SCISSOR beats PAPER")
-            self.increment_score(outcome)
-            self.go_again += 1
-            self.print_score()
-        elif self.user_choice == 3 and self.comp_choice == 2:
-            outcome = 1
-            print("!! ROUND WON !!")
-            print("SCISSOR beats PAPER")
-            self.increment_score(outcome)
-            self.go_again += 1
-            self.print_score()
-        elif self.user_choice == 3 and self.comp_choice == 1:
-            print("!! ROUND LOST !!")
-            print("ROCK beats SCISSOR")
-            self.increment_score(outcome)
-            self.go_again += 1
-            self.print_score()
-        elif self.user_choice == 1 and self.comp_choice == 3:
-            outcome = 1
-            print("!! ROUND WON !!")
-            print("ROCK beats SCISSOR")
-            self.increment_score(outcome)
-            self.go_again += 1
-            self.print_score()
-        else:
+        if self.user_choice == self.comp_choice:
             print("!! ROUND TIED !!")
-        
+        else:
+            if (self.user_choice, self.comp_choice) in outcomes:
+                print("!! ROUND WON !!")
+                outcome = 1
+            else:
+                print("!! ROUND LOST !!")
+                outcome = 0
+        print(outcomes.get((self.user_choice, self.comp_choice), ">>> INVALID CHOICE <<<"))
+        self.increment_score(outcome)
+        self.go_again += 1
+        self.print_score()
 
     def increment_score(self, outcome):
         if outcome == 0:
