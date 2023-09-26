@@ -45,60 +45,63 @@ class RockPaperScissor():
         self.comp_choice = random.randint(1,3)
         self.get_outcome()
 
-    def get_outcome(self):
+    def get_random_fact(self):
         url = 'https://uselessfacts.jsph.pl/api/v2/facts/random'
         response = requests.get(url)
         if response.status_code == 200:
             data = response.json()
             random_fact = data['text']
+            return random_fact
         else:
             print(f"Status Code: {response.status_code}")
+
+    def get_outcome(self):
         outcome = 0
-        print("")
+        random_fact = self.get_random_fact()
         if self.user_choice == 1 and self.comp_choice == 2:
-            print("!! ROUND LOST !!")
+            print("\n!! ROUND LOST !!")
             print("PAPER beats ROCK")
             self.increment_score(outcome)
             self.go_again += 1
             self.print_score()
         elif self.user_choice == 2 and self.comp_choice == 1:
             outcome = 1
-            print("!! ROUND WON !!")
+            print("\n!! ROUND WON !!")
             print("PAPER beats ROCK")
             self.increment_score(outcome)
             self.go_again += 1
             self.print_score()
             print(random_fact)
         elif self.user_choice == 2 and self.comp_choice == 3:
-            print("!! ROUND LOST !!")
+            print("\n!! ROUND LOST !!")
             print("SCISSOR beats PAPER")
             self.increment_score(outcome)
             self.go_again += 1
             self.print_score()
         elif self.user_choice == 3 and self.comp_choice == 2:
             outcome = 1
-            print("!! ROUND WON !!")
+            print("\n!! ROUND WON !!")
             print("SCISSOR beats PAPER")
             self.increment_score(outcome)
             self.go_again += 1
             self.print_score()
             print(random_fact)
         elif self.user_choice == 3 and self.comp_choice == 1:
-            print("!! ROUND LOST !!")
+            print("\n!! ROUND LOST !!")
             print("ROCK beats SCISSOR")
             self.increment_score(outcome)
             self.go_again += 1
             self.print_score()
         elif self.user_choice == 1 and self.comp_choice == 3:
             outcome = 1
-            print("!! ROUND WON !!")
+            print("\n!! ROUND WON !!")
             print("ROCK beats SCISSOR")
             self.increment_score(outcome)
             self.go_again += 1
             self.print_score()
             print(random_fact)
         else:
-            print("!! ROUND TIED !!")
+            print("\n!! ROUND TIED !!")
 
     def increment_score(self, outcome):
         if outcome == 0:
