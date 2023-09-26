@@ -1,5 +1,6 @@
 # Rock Paper Scissor Program - User plays against computer and every time user wins
 # a random fact is printed with the use of an API
+# more practical use of API with hangman game --> (https://github.com/iiamdawiid/hangman-w-api)
 
 import random
 import requests
