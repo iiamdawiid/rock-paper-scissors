@@ -56,52 +56,32 @@ class RockPaperScissor():
             print(f"Status Code: {response.status_code}")
 
     def get_outcome(self):
+        outcomes = {
+            (1, 2): "PAPER beats ROCK",
+            (2, 1): "PAPER beats ROCK",
+            (2, 3): "SCISSOR beats PAPER",
+            (3, 2): "SCISSOR beats PAPER",
+            (3, 1): "ROCK beats SCISSOR",
+            (1, 3): "ROCK beats SCISSOR",
+        }
+
         outcome = 0
-        random_fact = self.get_random_fact()
-        if self.user_choice == 1 and self.comp_choice == 2:
-            print("\n!! ROUND LOST !!")
-            print("PAPER beats ROCK")
-            self.increment_score(outcome)
-            self.go_again += 1
-            self.print_score()
-        elif self.user_choice == 2 and self.comp_choice == 1:
-            outcome = 1
-            print("\n!! ROUND WON !!")
-            print("PAPER beats ROCK")
-            self.increment_score(outcome)
-            self.go_again += 1
-            self.print_score()
-            print(random_fact)
-        elif self.user_choice == 2 and self.comp_choice == 3:
-            print("\n!! ROUND LOST !!")
-            print("SCISSOR beats PAPER")
-            self.increment_score(outcome)
-            self.go_again += 1
-            self.print_score()
-        elif self.user_choice == 3 and self.comp_choice == 2:
-            outcome = 1
-            print("\n!! ROUND WON !!")
-            print("SCISSOR beats PAPER")
-            self.increment_score(outcome)
-            self.go_again += 1
-            self.print_score()
-            print(random_fact)
-        elif self.user_choice == 3 and self.comp_choice == 1:
-            print("\n!! ROUND LOST !!")
-            print("ROCK beats SCISSOR")
-            self.increment_score(outcome)
-            self.go_again += 1
-            self.print_score()
-        elif self.user_choice == 1 and self.comp_choice == 3:
-            outcome = 1
-            print("\n!! ROUND WON !!")
-            print("ROCK beats SCISSOR")
-            self.increment_score(outcome)
-            self.go_again += 1
-            self.print_score()
-            print(random_fact)
+
+        if (self.user_choice, self.comp_choice) in outcomes:
+            if self.user_choice != self.comp_choice:
+                outcome = 1
+                print("\n!! ROUND WON !!")
+                print(outcomes[(self.user_choice, self.comp_choice)])
+            else:
+                print(f"\n!! ROUND TIED !! {self.choice_name(self.user_choice)} ties {self.choice_name(self.comp_choice)}")
         else:
-            print("\n!! ROUND TIED !!")
+            print("\n!! ROUND LOST !!")
+
+        self.increment_score(outcome)
+        self.go_again += 1
+        self.print_score()
+        if outcome == 1:
+            print(self.get_random_fact())
 
     def increment_score(self, outcome):
         if outcome == 0:
